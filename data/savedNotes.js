@@ -7,9 +7,9 @@
 
 var savedNotesArray = [
     {
-      noteTitle: "Dog walker",
-      noteText: "I need to call up the dog walker",
-      noteID: "a456",
+      title: "Dog walker",
+      text: "I need to call up the dog walker",
+      id: "a456",
       
     }
   ];

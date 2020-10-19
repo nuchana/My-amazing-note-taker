@@ -7,9 +7,9 @@
 
 var newNotesArray = [
     {
-      noteTitle: "John's birthday part",
-      noteText: "I need to buy a gift and pick up the flowers",
-      noteID: "a123",
+      title: "John's birthday part",
+      text: "I need to buy a gift and pick up the flowers",
+      id: "a123",
       
     }
   ];

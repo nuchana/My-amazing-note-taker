@@ -24,8 +24,6 @@ module.exports = function (app) {
         return res.json(savedNotesData);
     });
 
-    // Display a single noteID, or return false
-    //
 
     // API POST Requests
     // Below code handles when a user submits a form and thus submits data to the server.
@@ -52,7 +50,7 @@ module.exports = function (app) {
         console.log(chosenID)
 
         for (var i = 0; i < savedNotesData.length; i++) {
-            if (chosenID === savedNotesData[i].noteID) {
+            if (chosenID === savedNotesData[i].id) {
                 res.json(savedNotesData[i]);
             }
         }
