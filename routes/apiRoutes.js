@@ -4,11 +4,11 @@ const fs = require("fs");
 module.exports = function (app) {
     // Basic route that sends the user first to the AJAX Page
     app.get("/api/notes", function (req, res) {
-        res.sendFile(path.join(__dirname, "/../db/db.json"));
+        res.sendFile(path.join(__dirname, "../db/db.json"));
     });
 
     app.get("/api/notes/:id", function (req, res) {
-        let savedNotes = JSON.parse(fs.readFileSync("/../db/db.json", "utf8"));
+        let savedNotes = JSON.parse(fs.readFileSync("../db/db.json", "utf8"));
         res.json(savedNotes[Number(req.params.id)]);
     });
 
@@ -16,7 +16,7 @@ module.exports = function (app) {
         // Note the code here. Our "server" will respond to requests and let users know if they have a table or not.
         // It will do this by sending out the value "true" have a table
         // req.body is available since we're using the body parsing middleware
-        let saveNotes = JSON.parse(fs.readFileSync("/../db/db.json", "utf8"));
+        let saveNotes = JSON.parse(fs.readFileSync("../db/db.json", "utf8"));
         let newNote = req.body;
         let uniqueId = (saveNotes.length).toString();
         newNote.id = uniqueId;
@@ -24,8 +24,8 @@ module.exports = function (app) {
 
     });
 
-    app.delete("/api/tables", function (req, res){
-        let saveNotes = JSON.parse(fs.readFileSync("/../db/db.json", "utf8"));
+    app.delete("/api/notes/:id", function (req, res){
+        let saveNotes = JSON.parse(fs.readFileSync("../db/db.json", "utf8"));
         let noteId = res.params.id;
         let newId = 0;
         console.log(`Deleting note with ID ${noteId}`);
@@ -38,11 +38,11 @@ module.exports = function (app) {
             newId++;
 
         }
-        fs.writeFileSync("/../db/db.json", JSON.stringify(saveNotes));
+        fs.writeFileSync("../db/db.json", JSON.stringify(saveNotes));
         res.json(saveNotes);
 
     })
-}
+
     // ========================================================
 
     // app.get("/api/notes", (req, res) => {
@@ -59,5 +59,5 @@ module.exports = function (app) {
     //         res.json(dbJSON);
     //     });
     // });
-
+}
        
