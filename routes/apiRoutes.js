@@ -1,63 +1,58 @@
 const fs = require("fs");
+const path = require("path");
+const app = require("express").Router();
 
 
-module.exports = function (app) {
-    // Basic route that sends the user first to the AJAX Page
-    app.get("/api/notes", function (req, res) {
-        res.sendFile(path.join(__dirname, "../db/db.json"));
-    });
 
-    app.get("/api/notes/:id", function (req, res) {
-        let savedNotes = JSON.parse(fs.readFileSync("../db/db.json", "utf8"));
-        res.json(savedNotes[Number(req.params.id)]);
-    });
 
-    app.post("/api/notes", function (req, res) {
-        // Note the code here. Our "server" will respond to requests and let users know if they have a table or not.
-        // It will do this by sending out the value "true" have a table
-        // req.body is available since we're using the body parsing middleware
-        let saveNotes = JSON.parse(fs.readFileSync("../db/db.json", "utf8"));
-        let newNote = req.body;
-        let uniqueId = (saveNotes.length).toString();
-        newNote.id = uniqueId;
-        saveNotes.push(newNote);
+// Basic route that sends the user first to the AJAX Page
+app.get("/api/notes", function (req, res) {
+    console.log(__dirname)
+    res.sendFile(path.join(__dirname, "./db/db.json"));
+});
 
-    });
+app.get("/api/notes/:id", function (req, res) {
+    let savedNotes = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
+    // let saveNotes = JSON.parse(fs.readFileSync(path.join(__dirname, "../db/db.json")));
+    console.log(savedNotes)
+    res.json(savedNotes[Number(req.params.id)]);
+});
 
-    app.delete("/api/notes/:id", function (req, res){
-        let saveNotes = JSON.parse(fs.readFileSync("../db/db.json", "utf8"));
-        let noteId = res.params.id;
-        let newId = 0;
-        console.log(`Deleting note with ID ${noteId}`);
-        savedNotes = savedNotes.filter(currentNote => {
-            return currentNote.id !== noteId;
-        })
+app.post("/api/notes", function (req, res) {
+    console.log(res)
+    // Note the code here. Our "server" will respond to requests and let users save notes.
+    // req.body is available since we're using the body parsing middleware
+    let savedNotes = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
+    let newNote = req.body;
+    let uniqueId = (savedNotes.length).toString();
+    newNote.id = uniqueId;
+    savedNotes.push(newNote);
 
-        for (currentNote of saveNotes) {
-            currentNote.id = newID.toString();
-            newId++;
+    fs.writeFileSync("./db/db.json", JSON.stringify(savedNotes));
+    console.log("Note saved to db.json. Content: ", newNote);
+    res.json(savedNotes);
 
-        }
-        fs.writeFileSync("../db/db.json", JSON.stringify(saveNotes));
-        res.json(saveNotes);
+});
 
+
+app.delete("/api/notes/:id", function (req, res) {
+    let savedNotes = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
+    let noteID = req.params.id;
+    let newID = 0;
+    console.log(`Deleting note with ID ${noteID}`);
+    savedNotes = savedNotes.filter(currNote => {
+        return currNote.id != noteID;
     })
 
-    // ========================================================
+    for (currNote of savedNotes) {
+        currNote.id = newID.toString();
+        newID++;
+    }
 
-    // app.get("/api/notes", (req, res) => {
-    //     // store
-    //     // .getNotes()
-    //     console.log(__dirname)
-    //     fs.readFile(__dirname + "/../db/db.json", "utf8", function (err, notes) {
-    //         if (err) {
-    //             throw err;
-    //         }
+    fs.writeFileSync("./db/db.json", JSON.stringify(savedNotes));
+    res.json(savedNotes);
+})
 
-    //         // Parse the JSON string to an object
-    //         const dbJSON = JSON.parse(notes);
-    //         res.json(dbJSON);
-    //     });
-    // });
-}
-       
+module.exports = app;
+
+
