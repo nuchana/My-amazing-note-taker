@@ -3,8 +3,6 @@ const path = require("path");
 const app = require("express").Router();
 
 
-
-
 // Basic route that sends the user first to the AJAX Page
 app.get("/api/notes", function (req, res) {
     console.log(__dirname)
@@ -18,6 +16,7 @@ app.get("/api/notes/:id", function (req, res) {
     res.json(savedNotes[Number(req.params.id)]);
 });
 
+// every new note saved is given an ID equal to its position in the array to start.
 app.post("/api/notes", function (req, res) {
     console.log(res)
     // Note the code here. Our "server" will respond to requests and let users save notes.
@@ -34,7 +33,7 @@ app.post("/api/notes", function (req, res) {
 
 });
 
-
+// Remove a note using my unique IDs was to use a filter that would return an array with every entry except the entry I was looking for.
 app.delete("/api/notes/:id", function (req, res) {
     let savedNotes = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
     let noteID = req.params.id;
