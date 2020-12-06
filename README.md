@@ -5,7 +5,13 @@
 Create an application that can be used to write, save, and delete notes. This application will use an express backend and save and retrieve note data from a JSON file.
 
 ## My Deployed App
-![](./not_so_amazing_sample.gif)
+* [See Heroku Live Site](https://fast-ocean-49135.herokuapp.com/)
+
+## Screeshots
+
+Homepage displaying last workout
+
+![Site](public/assets/images/mainpage.JPG)
 
 ## Approach
 As the front end was already created, I needed to look at connecting this to the backend. I broke down the problem into smaller objectives:
@@ -17,9 +23,7 @@ As the front end was already created, I needed to look at connecting this to the
 6. The delete method needs to locate and delete specific notes from the server
 
 ## Challenges
-* I didn't use Horuku as it has not been covered in the class and won't be until next week lesson.
-
-* I have some difficulty with "Post" when I try to save my note. It showed 404 (not found) but when I looked at Headers in console, it showed the note in Form data tab. I wasn't able to crack it and tried both TA and BCS assistance. I would like to re-sumbit if that's ok as I felt my approach/pseudocode made sense. 
+* Learning how to use Store class and other help functions.
 
 * understanding pathing with Express, creating unique ID according to its position, and deleting function with filter. 
 
