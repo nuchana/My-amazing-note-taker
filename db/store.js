@@ -4,7 +4,7 @@ const util = require("util");
 const fs = require("fs");
 
 // this package will be used to help create unique id. 
-const uuidv1 = require("uuid/v1") // npm install uuid
+const uuidv1 = require("uuidv1") // npm install uuid
 
 const readFileAsync = util.promisify(fs.readFile);
 const writeFileAsyc = util.promisify(fs.writeFile);
@@ -60,4 +60,7 @@ class Store {
         .then((filteredNotes) = this.write(filteredNotes));
     }
 
+    
+
 }
+module.exports = new Store();
